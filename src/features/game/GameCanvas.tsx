@@ -18,11 +18,34 @@ export function GameCanvas({ onGameResult, gamePhase, onCanvasClick }: GameCanva
   const containerRef = useRef<HTMLDivElement>(null)
   const gameResultRef = useRef<GameResult>('ongoing')
   const gamePhaseRef = useRef<GamePhase>(gamePhase)
+  const shiftKeyRef = useRef<boolean>(false)
 
   // Keep phase ref updated
   useEffect(() => {
     gamePhaseRef.current = gamePhase
   }, [gamePhase])
+
+  // Track shift key state with native browser events
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Shift') {
+        shiftKeyRef.current = true
+      }
+    }
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === 'Shift') {
+        shiftKeyRef.current = false
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [])
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -30,10 +53,10 @@ export function GameCanvas({ onGameResult, gamePhase, onCanvasClick }: GameCanva
     console.log('Initializing GameCanvas...')
     const k = initKaplay(containerRef.current)
 
-    // Handle mouse clicks
+    // Handle mouse clicks - use native shift key tracking
     k.onMousePress(() => {
       const mousePos = k.mousePos()
-      const isShift = k.isKeyDown('shift')
+      const isShift = shiftKeyRef.current
       console.log('Mouse pressed at', mousePos, 'shift:', isShift)
       onCanvasClick(mousePos.x, mousePos.y, isShift)
     })
