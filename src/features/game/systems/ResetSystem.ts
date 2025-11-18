@@ -35,6 +35,11 @@ export function resetUnitsToInitialState(): void {
     if (unit.dead) {
       delete unit.dead
     }
+
+    // Show hidden units
+    if (gameObj.hidden) {
+      gameObj.hidden = false
+    }
   }
 }
 
