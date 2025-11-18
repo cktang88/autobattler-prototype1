@@ -6,7 +6,7 @@ function getDistance(x1: number, y1: number, x2: number, y2: number): number {
 
 export function updateMovement(dt: number): void {
   for (const unit of entities.units.entities) {
-    if (!unit.movement || !unit.target || !unit.sprite?.gameObj) continue
+    if (!unit.movement || !unit.target || !unit.sprite?.gameObj || unit.dead) continue
 
     const gameObj = unit.sprite.gameObj
     const targetId = unit.target.entityId

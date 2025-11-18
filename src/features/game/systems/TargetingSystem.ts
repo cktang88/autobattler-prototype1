@@ -66,7 +66,7 @@ function findHighestThreatEnemy(unit: Entity, enemies: Entity[]): Entity | null 
 
 export function updateTargeting(): void {
   for (const unit of entities.units.entities) {
-    if (!unit.sprite?.gameObj || !unit.target || !unit.team || !unit.unitType || !unit.combat) continue
+    if (!unit.sprite?.gameObj || !unit.target || !unit.team || !unit.unitType || !unit.combat || unit.dead) continue
 
     const gameObj = unit.sprite.gameObj
     const enemies = Array.from(entities.units.entities).filter(

@@ -4,7 +4,11 @@ import { removeEntity } from '../entities'
 export type GameResult = 'ongoing' | 'player-win' | 'enemy-win' | 'draw'
 
 export function updateDeath(): GameResult {
-  const deadUnits = Array.from(entities.dead.entities)
+  // Find dead units by checking health directly, not relying on the dead query
+  // (miniplex queries may not auto-update when components are added dynamically)
+  const deadUnits = Array.from(entities.units.entities).filter(
+    (u) => u.dead || (u.health && u.health.current <= 0)
+  )
 
   for (const unit of deadUnits) {
     removeEntity(unit)
