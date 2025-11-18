@@ -6,7 +6,7 @@ export const world = new World<Entity>()
 export const entities = {
   all: world,
   units: world.with('position', 'health', 'combat', 'team', 'unitType'),
-  bullets: world.with('position', 'velocity', 'bullet'),
+  bullets: world.with('bullet', 'sprite'),
   alive: world.with('health').without('dead'),
   dead: world.with('dead'),
   withTarget: world.with('target'),

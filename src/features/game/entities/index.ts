@@ -1,4 +1,4 @@
-import { world } from '../../../lib/ecs'
+import { world, entities } from '../../../lib/ecs'
 import { getKaplay } from '../../../lib/kaplay'
 import { UNIT_TYPES, UNIT_SIZE, BULLET_SIZE } from '../config/unitTypes'
 import type { Entity } from '../components'
