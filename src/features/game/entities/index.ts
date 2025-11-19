@@ -58,6 +58,8 @@ export function createUnit(
     case 'sniper': letter = 'S'; break
     case 'tank': letter = 'T'; break
     case 'scout': letter = 'R'; break
+    case 'melee': letter = 'M'; break
+    case 'heavyTank': letter = 'H'; break
   }
 
   gameObj.add([
